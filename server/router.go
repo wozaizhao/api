@@ -17,7 +17,7 @@ func SetupRouter() *gin.Engine {
 	wx := r.Group("/wx")
 	{
 		// 获取js-sdk配置信息
-		wx.POST("getConfig", user.WxGetConfig)
+		wx.GET("getConfig", user.WxGetConfig)
 
 	}
 

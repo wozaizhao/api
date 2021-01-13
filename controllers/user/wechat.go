@@ -21,11 +21,11 @@ var (
 	serverURL string
 )
 
-func init() {
+// Init 初始化
+func Init() {
 	id := common.GetWxID()
 	appID = id["appID"]
 	appSecret = id["appSecret"]
-	serverURL = id["serverURL"]
 	wc := wechat.NewWechat()
 	//这里本地内存保存access_token，也可选择redis，�memcache或者自定cache
 	memory := cache.NewMemory()
@@ -41,8 +41,11 @@ func init() {
 
 // WxGetConfig 获取js-sdk配置
 func WxGetConfig(c *gin.Context) {
+	url := c.Query("url")
+	log.Debug(officialAccount)
+	Init()
 	js := officialAccount.GetJs()
-	config, err := js.GetConfig(serverURL)
+	config, err := js.GetConfig(url)
 	if err != nil {
 		log.Warn(err)
 		c.Abort()

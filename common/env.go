@@ -12,7 +12,6 @@ var (
 	secretKey string
 	appID     string
 	appSecret string
-	serverURL string
 )
 
 // GetEnv 获取env
@@ -24,7 +23,6 @@ func GetEnv() {
 
 	accessKey = os.Getenv("QINIU_AK")
 	secretKey = os.Getenv("QINIU_SK")
-	serverURL = os.Getenv("SERVER_URL")
 	appID = os.Getenv("APPID")
 	appSecret = os.Getenv("APPSECRET")
 
@@ -36,7 +34,6 @@ func GetWxID() (key map[string]string) {
 	key = make(map[string]string)
 	key["appID"] = appID
 	key["appSecret"] = appSecret
-	key["serverURL"] = serverURL
 	return
 }
 
