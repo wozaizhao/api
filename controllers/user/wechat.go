@@ -36,6 +36,7 @@ func Init() {
 		//EncodingAESKey: "xxxx",
 		Cache: memory,
 	}
+	log.Debug("cfg", cfg)
 	officialAccount = wc.GetOfficialAccount(cfg)
 }
 
@@ -43,7 +44,6 @@ func Init() {
 func WxGetConfig(c *gin.Context) {
 	url := c.Query("url")
 	log.Debug(officialAccount)
-	Init()
 	js := officialAccount.GetJs()
 	config, err := js.GetConfig(url)
 	if err != nil {
