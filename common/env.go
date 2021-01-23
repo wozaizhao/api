@@ -8,10 +8,12 @@ import (
 )
 
 var (
-	accessKey string
-	secretKey string
-	appID     string
-	appSecret string
+	accessKey   string
+	secretKey   string
+	appID       string
+	appSecret   string
+	mongodbHost string
+	mongodbPort string
 )
 
 // GetEnv 获取env
@@ -25,6 +27,8 @@ func GetEnv() {
 	secretKey = os.Getenv("QINIU_SK")
 	appID = os.Getenv("APPID")
 	appSecret = os.Getenv("APPSECRET")
+	mongodbHost = os.Getenv("MONGODB_HOST")
+	mongodbPort = os.Getenv("MONGODB_PORT")
 
 	return
 }
@@ -35,6 +39,11 @@ func GetWxID() (key map[string]string) {
 	key["appID"] = appID
 	key["appSecret"] = appSecret
 	return
+}
+
+// GetMongodbURL 获取mongodb连接地址
+func GetMongodbURL() string {
+	return "mongodb://" + mongodbHost + ":" + mongodbPort
 }
 
 // GetQiniuKey 获取七牛key
