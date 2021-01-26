@@ -1,6 +1,7 @@
 package common
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -8,12 +9,12 @@ import (
 )
 
 var (
-	accessKey   string
-	secretKey   string
-	appID       string
-	appSecret   string
-	mongodbHost string
-	mongodbPort string
+	accessKey string
+	secretKey string
+	appID     string
+	appSecret string
+	qqMapKey  string
+	dsn       string
 )
 
 // GetEnv 获取env
@@ -27,10 +28,24 @@ func GetEnv() {
 	secretKey = os.Getenv("QINIU_SK")
 	appID = os.Getenv("APPID")
 	appSecret = os.Getenv("APPSECRET")
-	mongodbHost = os.Getenv("MONGODB_HOST")
-	mongodbPort = os.Getenv("MONGODB_PORT")
+	qqMapKey = os.Getenv("QQMAP_KEY")
 
+	userName := os.Getenv("USERNAME")
+	password := os.Getenv("PASSWORD")
+	host := os.Getenv("HOST")
+	port := os.Getenv("PORT")
+	database := os.Getenv("DATABASE")
+	dsn = fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local", userName, password, host, port, database)
 	return
+}
+
+// GetDsn 获取 dsn
+func GetDsn() string {
+	return dsn
+}
+
+func GetQQMAPKey() string {
+	return qqMapKey
 }
 
 // GetWxID 获取公众号key
@@ -39,11 +54,6 @@ func GetWxID() (key map[string]string) {
 	key["appID"] = appID
 	key["appSecret"] = appSecret
 	return
-}
-
-// GetMongodbURL 获取mongodb连接地址
-func GetMongodbURL() string {
-	return "mongodb://" + mongodbHost + ":" + mongodbPort
 }
 
 // GetQiniuKey 获取七牛key

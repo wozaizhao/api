@@ -1,32 +1,28 @@
 package models
 
 import (
-	"context"
-
-	"github.com/qiniu/qmgo"
 	log "github.com/sirupsen/logrus"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 	"wozaizhao.com/api/common"
 )
 
-var db *qmgo.Database
+// DB 数据库
+var DB *gorm.DB
 
-var wdjky *qmgo.Collection
-
-var ctx context.Context
-
-// InitDB 初始化数据库
-func InitDB() {
-	mongoURI := common.GetMongodbURL()
-	ctx = context.Background()
-	client, err := qmgo.NewClient(ctx, &qmgo.Config{Uri: mongoURI})
+// OpenDB 打开数据库
+func OpenDB() {
+	dsn := common.GetDsn()
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Error("InitDB error", err)
+		log.Error("OpenDB Error", err)
+	} else {
+		DB = db
+		initTable()
 	}
-	defer func() {
-		if err = client.Close(ctx); err != nil {
-			panic(err)
-		}
-	}()
-	db = client.Database("wzz")
-	wdjky = db.Collection("wdjky")
+
+}
+
+func initTable() {
+	DB.AutoMigrate(&Place{})
 }

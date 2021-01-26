@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"wozaizhao.com/api/controllers/covid"
+	"wozaizhao.com/api/controllers/app"
 	"wozaizhao.com/api/controllers/user"
 )
 
@@ -20,7 +20,10 @@ func SetupRouter() *gin.Engine {
 		// 获取js-sdk配置信息
 		wx.GET("getConfig", user.WxGetConfig)
 
-		wx.GET("getCovidOrgs", covid.GetCovidTestOrgs)
+		wx.GET("getPage", app.GetPage)
+
+		// 添加地点
+		wx.POST("addPlace", app.AddPlace)
 
 	}
 
