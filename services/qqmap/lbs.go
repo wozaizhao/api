@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	log "github.com/sirupsen/logrus"
 	"wozaizhao.com/api/common"
 	"wozaizhao.com/api/util"
 )
@@ -53,6 +54,7 @@ const geocoderURL = "https://apis.map.qq.com/ws/geocoder/v1/?address=%s&region=%
 func Geocoder(address, region string) (result ResGeocoder, err error) {
 	key := common.GetQQMAPKey()
 	urlStr := fmt.Sprintf(geocoderURL, address, region, key)
+	log.Debug("url", urlStr)
 	var response []byte
 	response, err = util.HTTPGet(urlStr)
 	if err != nil {
