@@ -9,8 +9,8 @@ import (
 
 type addPlaceReq struct {
 	CountyName  string `json:"countyName"`  // 区
-	Name        string `json:"name"`        // 地点名称
-	Address     string `json:"address"`     // 地址
+	Name        string `json:"orgName"`     // 地点名称
+	Address     string `json:"orgAddress"`  // 地址
 	ServiceTime string `json:"serviceTime"` // 服务时间
 	Phone       string `json:"phone"`       // 电话
 }
