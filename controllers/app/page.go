@@ -19,14 +19,14 @@ type addPageReq struct {
 func AddPage(c *gin.Context) {
 	var addReq addPageReq
 	if err := c.Bind(&addReq); err != nil {
-		c.JSON(http.StatusBadRequest, "bad request")
+		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
 	err := models.CreatePage(addReq.Title, addReq.Author, addReq.Abstract, addReq.Content, addReq.ContentType)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "server error")
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 
@@ -39,7 +39,7 @@ func GetPage(c *gin.Context) {
 	id := c.Param("id")
 	page, err := models.GetPageByID(id)
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "server error")
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 	c.JSON(http.StatusOK, page)

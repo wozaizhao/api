@@ -19,14 +19,14 @@ type addPlaceReq struct {
 func AddPlace(c *gin.Context) {
 	var addReq addPlaceReq
 	if err := c.Bind(&addReq); err != nil {
-		c.JSON(http.StatusBadRequest, "bad request")
+		c.JSON(http.StatusBadRequest, err)
 		return
 	}
 
 	err := models.CreatePlace(addReq.CountyName, addReq.Name, addReq.Address, addReq.ServiceTime, addReq.Phone)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "server error")
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 
@@ -38,7 +38,7 @@ func AddPlace(c *gin.Context) {
 func GetPlaces(c *gin.Context) {
 	places, err := models.PlaceList()
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "server error")
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 	c.JSON(http.StatusOK, places)
