@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	log "github.com/sirupsen/logrus"
 	"wozaizhao.com/api/models"
 )
 
@@ -19,6 +20,7 @@ type addPageReq struct {
 func AddPage(c *gin.Context) {
 	var addReq addPageReq
 	if err := c.BindJSON(&addReq); err != nil {
+		log.Error("Bind Error", err)
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
