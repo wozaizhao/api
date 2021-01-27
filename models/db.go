@@ -24,5 +24,5 @@ func OpenDB() {
 }
 
 func initTable() {
-	DB.AutoMigrate(&Place{})
+	DB.AutoMigrate(&Place{}, &Page{})
 }
