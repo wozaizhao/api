@@ -18,7 +18,7 @@ type addPageReq struct {
 // AddPage 添加页
 func AddPage(c *gin.Context) {
 	var addReq addPageReq
-	if err := c.Bind(&addReq); err != nil {
+	if err := c.BindJSON(&addReq); err != nil {
 		c.JSON(http.StatusBadRequest, err)
 		return
 	}
