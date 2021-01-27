@@ -21,7 +21,7 @@ type Place struct {
 
 // CreatePlace 创建地点
 func CreatePlace(countyName, name, address, serviceTime, phone string) error {
-	res, err := qqmap.Geocoder(address, "上海")
+	res, err := qqmap.Geocoder("上海市"+address, "上海")
 	if err != nil {
 		log.Error(err)
 	}
