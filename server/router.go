@@ -25,6 +25,8 @@ func SetupRouter() *gin.Engine {
 		// 添加地点
 		wx.POST("addPlace", app.AddPlace)
 
+		// 获取地点
+		wx.GET("getPlaces", app.GetPlaces)
 	}
 
 	// 小程序相关接口

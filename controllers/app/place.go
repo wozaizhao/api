@@ -33,3 +33,13 @@ func AddPlace(c *gin.Context) {
 	c.JSON(http.StatusOK, "add successfully")
 
 }
+
+// GetPlaces 获取地点
+func GetPlaces(c *gin.Context) {
+	places, err := models.PlaceList()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "server error")
+		return
+	}
+	c.JSON(http.StatusOK, places)
+}

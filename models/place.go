@@ -27,6 +27,13 @@ func CreatePlace(countyName, name, address, serviceTime, phone string) error {
 	}
 	place := Place{CountyName: countyName, Name: name, Address: address, ServiceTime: serviceTime, Lng: res.Result.Location.Lng, Lat: res.Result.Location.Lat, Phone: phone, Type: 1}
 	result := DB.Create(&place)
-	log.Debug("CreatePlace", result)
+	log.Debug("CreatePlace RowsAffected", result.RowsAffected)
 	return result.Error
+}
+
+// PlaceList 地点列表
+func PlaceList() (places []Place, err error) {
+	result := DB.Find(&places)
+	log.Debug("PlaceList RowsAffected", result.RowsAffected)
+	return places, result.Error
 }
