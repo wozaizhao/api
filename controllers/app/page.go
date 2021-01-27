@@ -8,11 +8,11 @@ import (
 )
 
 type addPageReq struct {
-	Title       string `json:"title" form:"title"`             // 标题
-	Author      string `json:"author" form:"author"`           // 作者
-	Abstract    string `json:"abstract" form:"abstract"`       // 摘要
-	Content     string `json:"content" form:"content"`         // 内容
-	ContentType uint   `json:"contentType" form:"contentType"` // 内容类型
+	Title       string `form:"title" binding:"required"`       // 标题
+	Author      string `form:"author" binding:"required"`      // 作者
+	Abstract    string `form:"abstract" binding:"required"`    // 摘要
+	Content     string `form:"content" binding:"required"`     // 内容
+	ContentType uint   `form:"contentType" binding:"required"` // 内容类型
 }
 
 // AddPage 添加页
