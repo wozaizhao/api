@@ -69,5 +69,12 @@ func GetPage(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
-	c.JSON(http.StatusOK, page)
+	cates, errGetCategory := models.GetCategoryByType(page.CategoryType)
+	if errGetCategory != nil {
+		log.Error(errGetCategory)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"data":  page,
+		"cates": cates,
+	})
 }
