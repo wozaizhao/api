@@ -64,7 +64,11 @@ func AddCategories(c *gin.Context) {
 // GetPage 获取页
 func GetPage(c *gin.Context) {
 	id := c.Param("id")
-	page, err := models.GetPageByID(id)
+	pageID, parseErr := common.ParseInt(id)
+	if parseErr != nil {
+		log.Error("", parseErr)
+	}
+	page, err := models.GetPageByID(uint(pageID))
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return

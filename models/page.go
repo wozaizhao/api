@@ -27,7 +27,7 @@ func CreatePage(title, author, abstract, content string, contentType uint) error
 }
 
 // GetPageByID 获取页面
-func GetPageByID(id string) (page Page, err error) {
+func GetPageByID(id uint) (page Page, err error) {
 	result := DB.First(&page, id)
 	page.ReadCount = page.ReadCount + 1
 	DB.Save(&page)
