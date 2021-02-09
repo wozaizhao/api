@@ -19,10 +19,12 @@ func SetupRouter() *gin.Engine {
 	{
 		// 获取js-sdk配置信息
 		wx.GET("getConfig", user.WxGetConfig)
-
+		// 添加页
 		wx.POST("page", app.AddPage)
+		// 获取页
 		wx.GET("page/:id", app.GetPage)
-
+		// 添加分类
+		wx.POST("cate", app.AddCategories)
 		// 添加地点
 		wx.POST("place", app.AddPlace)
 

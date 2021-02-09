@@ -2,10 +2,10 @@ package app
 
 import (
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"wozaizhao.com/api/common"
 	"wozaizhao.com/api/models"
 )
 
@@ -21,11 +21,6 @@ type addPlaceReq struct {
 	Lat           string `json:"lat"`           // 纬度
 }
 
-func parseFloat(str string) (float64, error) {
-	num, err := strconv.ParseFloat(str, 64)
-	return num, err
-}
-
 // AddPlace 创建一个地址
 func AddPlace(c *gin.Context) {
 	var addReq addPlaceReq
@@ -35,11 +30,11 @@ func AddPlace(c *gin.Context) {
 	}
 	log.Debug("addReq", addReq)
 
-	lng, parseLngErr := parseFloat(addReq.Lng)
+	lng, parseLngErr := common.ParseFloat(addReq.Lng)
 	if parseLngErr != nil {
 		log.Error("parseLngErr", parseLngErr)
 	}
-	lat, parseLatErr := parseFloat(addReq.Lat)
+	lat, parseLatErr := common.ParseFloat(addReq.Lat)
 	if parseLatErr != nil {
 		log.Error("parseLatErr", parseLatErr)
 	}
