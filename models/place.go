@@ -34,7 +34,7 @@ func CreatePlace(name, address, serviceTime, phone, businessScope, remark string
 }
 
 // PlaceList 地点列表
-func PlaceList() (places []Place, err error) {
-	result := DB.Where("type = ?", "1").Find(&places)
+func PlaceList(placeType string) (places []Place, err error) {
+	result := DB.Where("type = ?", placeType).Find(&places)
 	return places, result.Error
 }

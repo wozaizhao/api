@@ -57,7 +57,8 @@ func AddPlace(c *gin.Context) {
 
 // GetPlaces 获取地点
 func GetPlaces(c *gin.Context) {
-	places, err := models.PlaceList()
+	placeType := c.DefaultQuery("type", "1")
+	places, err := models.PlaceList(placeType)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return
