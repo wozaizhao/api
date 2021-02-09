@@ -9,7 +9,7 @@ import (
 type Category struct {
 	gorm.Model
 	Type    uint   `json:"type" gorm:"type:smallint(1);NOT NULL;DEFAULT ''"` // 类型
-	Content string `json:"content" gorm:"type:varchar(10);NOT NULL"`         // 内容
+	Content string `json:"content" gorm:"type:varchar(25);NOT NULL"`         // 内容
 }
 
 // CreateCategory 创建分类
