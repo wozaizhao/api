@@ -53,8 +53,8 @@ func Filter(placeType, fieldName, fieldValue string) func(db *gorm.DB) *gorm.DB 
 	var whereStr string
 	return func(db *gorm.DB) *gorm.DB {
 		if fieldName != "" && fieldValue != "" {
-			whereStr = fmt.Sprintf("type = ? AND %s LIKE ?", "%"+fieldName+"%")
-			return db.Where(whereStr, placeType, fieldValue)
+			whereStr = fmt.Sprintf("type = ? AND %s LIKE ?", fieldName)
+			return db.Where(whereStr, placeType, "%"+fieldValue+"%")
 		} else {
 			return db.Where("type = ?", placeType)
 		}
