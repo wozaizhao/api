@@ -2,6 +2,7 @@ package app
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
@@ -53,7 +54,11 @@ func AddPlace(c *gin.Context) {
 // GetPlaces 获取地点
 func GetPlaces(c *gin.Context) {
 	placeType := c.DefaultQuery("type", "1")
-	places, err := models.PlaceList(placeType)
+	fieldName := c.Query("fieldName")
+	fieldValue := c.Query("fieldValue")
+	pageNum, _ := strconv.Atoi(c.DefaultQuery("pageNum", "1"))
+	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "15"))
+	places, err := models.PlaceList(placeType, fieldName, fieldValue, pageNum, pageSize)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return

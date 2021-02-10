@@ -34,7 +34,14 @@ func CreatePlace(name, address, serviceTime, phone, businessScope, remark string
 }
 
 // PlaceList 地点列表
-func PlaceList(placeType string) (places []Place, err error) {
-	result := DB.Where("type = ?", placeType).Find(&places)
+func PlaceList(placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
+	// var whereStr string
+	// if fieldName != "" && fieldValue != "" {
+	// 	whereStr = fmt.Sprintf("type = ? AND %s = ?", fieldName)
+	// } else {
+	// 	whereStr = fmt.Sprintf("type = ? AND %s = ?", fieldName)
+	// }
+
+	result := DB.Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
 	return places, result.Error
 }
