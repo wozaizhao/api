@@ -42,6 +42,6 @@ func PlaceList(placeType, fieldName, fieldValue string, pageNum, pageSize int) (
 	// 	whereStr = fmt.Sprintf("type = ? AND %s = ?", fieldName)
 	// }
 
-	result := DB.Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
+	result := DB.Debug().Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
 	return places, result.Error
 }
