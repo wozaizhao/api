@@ -56,9 +56,11 @@ func GetPlaces(c *gin.Context) {
 	placeType := c.DefaultQuery("type", "1")
 	fieldName := c.Query("fieldName")
 	fieldValue := c.Query("fieldValue")
+	lng := c.DefaultQuery("lng", "121.47")
+	lat := c.DefaultQuery("lat", "31.23")
 	pageNum, _ := strconv.Atoi(c.DefaultQuery("pageNum", "1"))
 	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "15"))
-	places, err := models.PlaceList(placeType, fieldName, fieldValue, pageNum, pageSize)
+	places, err := models.PlaceList(lng, lat, placeType, fieldName, fieldValue, pageNum, pageSize)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, err)
 		return

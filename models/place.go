@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	"github.com/jinzhu/gorm"
 	log "github.com/sirupsen/logrus"
 )
@@ -34,14 +36,14 @@ func CreatePlace(name, address, serviceTime, phone, businessScope, remark string
 }
 
 // PlaceList 地点列表
-func PlaceList(placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
-	// var whereStr string
-	// if fieldName != "" && fieldValue != "" {
-	// 	whereStr = fmt.Sprintf("type = ? AND %s = ?", fieldName)
-	// } else {
-	// 	whereStr = fmt.Sprintf("type = ? AND %s = ?", fieldName)
-	// }
+// func PlaceList(placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
 
-	result := DB.Debug().Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
+// 	result := DB.Debug().Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
+// 	return places, result.Error
+// }
+func PlaceList(currentLng, currentLat, placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
+	var distance = "*, power((%s - places.lng),2) + power((%s - places.lat),2) as distance"
+	var selectDistance = fmt.Sprintf(distance, currentLng, currentLat)
+	result := DB.Debug().Table("places").Select(selectDistance).Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Order("distance").Find(&places)
 	return places, result.Error
 }
