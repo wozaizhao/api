@@ -47,7 +47,7 @@ func AddPlace(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "add successfully")
+	c.JSON(http.StatusOK, "AddPlace successfully")
 
 }
 

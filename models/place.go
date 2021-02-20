@@ -19,7 +19,7 @@ type Place struct {
 	Remark        string  `json:"remark" gorm:"type:varchar(255);DEFAULT ''"`                // 备注
 	Lng           float64 `json:"lng"`
 	Lat           float64 `json:"lat"`
-	Type          uint    `json:"type" gorm:"type:smallint(1);NOT NULL;DEFAULT ''"` // 类型
+	Type          uint    `json:"type" gorm:"type:smallint(6);NOT NULL;DEFAULT ''"` // 类型
 }
 
 // CreatePlace 创建地点
@@ -35,12 +35,7 @@ func CreatePlace(name, address, serviceTime, phone, businessScope, remark string
 	return result.Error
 }
 
-// PlaceList 地点列表
-// func PlaceList(placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
-
-// 	result := DB.Debug().Scopes(Paginate(pageNum, pageSize)).Scopes(Filter(placeType, fieldName, fieldValue)).Find(&places)
-// 	return places, result.Error
-// }
+// PlaceList 地点
 func PlaceList(currentLng, currentLat, placeType, fieldName, fieldValue string, pageNum, pageSize int) (places []Place, err error) {
 	var distance = "*, power((%s - places.lng),2) + power((%s - places.lat),2) as distance"
 	var selectDistance = fmt.Sprintf(distance, currentLng, currentLat)

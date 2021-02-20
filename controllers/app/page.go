@@ -38,7 +38,7 @@ func AddPage(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, "add successfully")
+	c.JSON(http.StatusOK, "AddPage successfully")
 
 }
 

@@ -27,7 +27,10 @@ func SetupRouter() *gin.Engine {
 		wx.POST("cate", app.AddCategories)
 		// 添加地点
 		wx.POST("place", app.AddPlace)
-
+		// 添加学校
+		wx.POST("school", app.AddSchool)
+		// 添加招生地段
+		wx.POST("schoolDistrict", app.AddSchoolDistrict)
 		// 获取地点
 		wx.GET("places", app.GetPlaces)
 	}

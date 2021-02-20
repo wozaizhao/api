@@ -26,7 +26,7 @@ func OpenDB() {
 }
 
 func initTable() {
-	DB.AutoMigrate(&Place{}, &Page{}, &Category{})
+	DB.AutoMigrate(&Place{}, &Page{}, &Category{}, &School{}, &SchoolDistrict{})
 }
 
 // Paginate 分页
